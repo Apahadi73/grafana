@@ -38,12 +38,12 @@ export const PromQueryEditorSelector = memo<Props>((props) => {
 
   const [parseModalOpen, setParseModalOpen] = useState(false);
   const [queryPatternsModalOpen, setQueryPatternsModalOpen] = useState(false);
-  const [dataIsStale,setDataIsStale] = useState(false);
-  const startedEmptyRef = useRef(props.query.expr?.trim() === '');
+  const query = getQueryWithDefaults(props.query, app, defaultEditor);
+  const [dataIsStale, setDataIsStale] = useState(false);
+  const startedEmptyRef = useRef((query.expr?.trim() ?? '') === '');
   const showKickStartButton = startedEmptyRef.current;
   const { flag: explain, setFlag: setExplain } = useFlag(promQueryEditorExplainKey);
 
-  const query = getQueryWithDefaults(props.query, app, defaultEditor);
   // This should be filled in from the defaults by now.
   const editorMode = query.editorMode!;
 

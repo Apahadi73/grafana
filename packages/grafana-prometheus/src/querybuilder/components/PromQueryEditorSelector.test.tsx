@@ -160,6 +160,21 @@ describe('PromQueryEditorSelector', () => {
     expectNoKickStartButton();
   });
 
+  it('shows Kick start your query button when editor loads with missing expr', async () => {
+    render(
+      <PromQueryEditorSelector
+        {...defaultProps}
+        query={
+          {
+            refId: 'A',
+          } as PromQuery
+        }
+      />
+    );
+
+    expectKickStartButton();
+  });
+
   it('changes to builder mode', async () => {
     const { onChange } = renderWithMode(QueryEditorMode.Code);
     await switchToMode(QueryEditorMode.Builder);
